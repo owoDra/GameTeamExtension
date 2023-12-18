@@ -1,0 +1,43 @@
+// Copyright (C) 2023 owoDra
+
+#include "TeamMemberComponent.h"
+
+#include "Net/UnrealNetwork.h"
+
+#include UE_INLINE_GENERATED_CPP_BY_NAME(TeamMemberComponent)
+
+
+UTeamMemberComponent::UTeamMemberComponent(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+	PrimaryComponentTick.bStartWithTickEnabled = false;
+	PrimaryComponentTick.bCanEverTick = false;
+
+	SetIsReplicatedByDefault(true);
+}
+
+void UTeamMemberComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ThisClass, MyTeamID);
+}
+
+
+void UTeamMemberComponent::OnRep_MyTeamID(FGenericTeamId OldTeamID)
+{
+}
+
+void UTeamMemberComponent::SetGenericTeamId(const FGenericTeamId& NewTeamID)
+{
+	if (GetOwner()->HasAuthority())
+	{
+		MyTeamID = NewTeamID;
+	}
+}
+
+
+UTeamMemberComponent* UTeamMemberComponent::FindTeamMemberComponent(const AActor* Actor)
+{
+	return (Actor ? Actor->FindComponentByClass<UTeamMemberComponent>() : nullptr);
+}
