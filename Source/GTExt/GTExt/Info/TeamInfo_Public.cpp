@@ -23,7 +23,7 @@ void ATeamInfo_Public::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 void ATeamInfo_Public::SetTeamDisplayData(TObjectPtr<UTeamDisplayData> NewDisplayData)
 {
 	check(HasAuthority());
-	check(NewDisplayData == nullptr);
+	check(NewDisplayData);
 
 	TeamDisplayData = NewDisplayData;
 

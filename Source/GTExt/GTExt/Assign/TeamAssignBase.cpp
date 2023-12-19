@@ -47,11 +47,12 @@ void UTeamAssignBase::AssignTeamForPlayer(const UTeamCreationData* TeamCreationD
 
 				// do not count unassigned or disconnected players
 
-				if ((PlayerTeamID != INDEX_NONE) && !PS->IsInactive())	
+				if (!PS->IsInactive())	
 				{
-					check(TeamMemberCounts.Contains(PlayerTeamID));
-
-					TeamMemberCounts[PlayerTeamID] += 1;
+					if (TeamMemberCounts.Contains(PlayerTeamID))
+					{
+						TeamMemberCounts[PlayerTeamID] += 1;
+					}
 				}
 			}
 		}

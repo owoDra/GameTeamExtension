@@ -10,7 +10,7 @@
 class UTeamCreationData;
 
 
-UCLASS()
+UCLASS(meta = (BlueprintSpawnableComponent))
 class GTEXT_API UTeamManagerComponent 
 	: public UGameStateComponent
 	, public IGameFrameworkInitStateInterface

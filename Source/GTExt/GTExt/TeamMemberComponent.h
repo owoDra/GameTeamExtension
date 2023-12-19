@@ -17,7 +17,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FTeamIdChangedDelegate, UObject*,
 /**
  * Components for managing teams to which actors belong
  */
-UCLASS()
+UCLASS(meta = (BlueprintSpawnableComponent))
 class GTEXT_API UTeamMemberComponent
 	: public UActorComponent
 	, public IGenericTeamAgentInterface
@@ -45,6 +45,8 @@ public:
 	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamID) override;
 	virtual FGenericTeamId GetGenericTeamId() const override { return MyTeamID; }
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Team")
+	int32 GetTeamId() const { return static_cast<int32>(MyTeamID.GetId()); }
 
 public:
 	UFUNCTION(BlueprintPure, Category = "Component")
