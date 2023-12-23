@@ -7,6 +7,8 @@
 #include UE_INLINE_GENERATED_CPP_BY_NAME(TeamMemberComponent)
 
 
+const FName UTeamMemberComponent::NAME_ActorFeatureName("TeamMember");
+
 UTeamMemberComponent::UTeamMemberComponent(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
