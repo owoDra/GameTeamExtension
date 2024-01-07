@@ -1,10 +1,11 @@
-// Copyright (C) 2023 owoDra
+﻿// Copyright (C) 2023 owoDra
 
 #pragma once
 
 #include "GameFramework/Info.h"
 
 #include "GameplayTag/GameplayTagStack.h"
+#include "GameplayTag/GameplayTagStackInterface.h"
 
 #include "TeamInfoBase.generated.h"
 
@@ -15,7 +16,9 @@ class UTeamManagerSubsystem;
  * Base class for storing team information
  */
 UCLASS(Abstract)
-class ATeamInfoBase : public AInfo
+class ATeamInfoBase 
+	: public AInfo
+	, public IGameplayTagStackInterface
 {
 	GENERATED_BODY()
 
@@ -46,6 +49,12 @@ protected:
 	UPROPERTY(Replicated)
 	FGameplayTagStackContainer TeamTags;
 
+protected:
+	virtual FGameplayTagStackContainer* GetStatTags() override { return &TeamTags; }
+	virtual const FGameplayTagStackContainer* GetStatTagsConst() const override { return &TeamTags; }
+
+
+protected:
 	UPROPERTY(ReplicatedUsing = OnRep_TeamId)
 	int32 TeamId{ INDEX_NONE };
 
