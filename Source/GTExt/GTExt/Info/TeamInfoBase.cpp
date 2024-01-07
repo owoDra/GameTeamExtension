@@ -1,4 +1,4 @@
-// Copyright (C) 2023 owoDra
+﻿// Copyright (C) 2023 owoDra
 
 #include "TeamInfoBase.h"
 
@@ -11,6 +11,7 @@
 
 ATeamInfoBase::ATeamInfoBase(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
+	, TeamTags(this)
 {
 	bReplicates = true;
 	bAlwaysRelevant = true;
