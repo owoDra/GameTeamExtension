@@ -11,7 +11,7 @@
 #include "Assign/TeamAssignBase.h"
 #include "GTExtLogs.h"
 
-#include "Actor/GFCGameMode.h"
+#include "GameMode/GFCGameMode.h"
 #include "InitState/InitStateTags.h"
 
 #include "Net/UnrealNetwork.h"
