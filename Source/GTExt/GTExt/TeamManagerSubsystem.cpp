@@ -1,4 +1,4 @@
-// Copyright (C) 2024 owoDra
+﻿// Copyright (C) 2024 owoDra
 
 #include "TeamManagerSubsystem.h"
 
@@ -169,6 +169,40 @@ void UTeamManagerSubsystem::RemoveTeamTagStack(int32 TeamId, FGameplayTag Tag, i
 			if (Entry->PublicInfo->HasAuthority())
 			{
 				Entry->PublicInfo->TeamTags.RemoveStack(Tag, StackCount);
+			}
+			else
+			{
+				FailureHandler(TEXT("failed because it was called on a client"));
+			}
+		}
+		else
+		{
+			FailureHandler(TEXT("failed because there is no team info spawned yet (called too early, before the experience was ready)"));
+		}
+	}
+	else
+	{
+		FailureHandler(TEXT("failed because it was passed an unknown team id"));
+	}
+}
+
+void UTeamManagerSubsystem::SetTeamTagStack(int32 TeamId, FGameplayTag Tag, int32 StackCount)
+{
+	auto FailureHandler
+	{
+		[&](const FString& ErrorMessage)
+		{
+			UE_LOG(LogGTE, Error, TEXT("SetTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
+		}
+	};
+
+	if (auto* Entry{ TeamMap.Find(TeamId) })
+	{
+		if (Entry->PublicInfo)
+		{
+			if (Entry->PublicInfo->HasAuthority())
+			{
+				Entry->PublicInfo->TeamTags.SetStack(Tag, StackCount);
 			}
 			else
 			{

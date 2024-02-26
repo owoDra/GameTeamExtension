@@ -16,7 +16,7 @@ class UTeamManagerSubsystem;
  * Base class for storing team information
  */
 UCLASS(Abstract)
-class ATeamInfoBase 
+class GTEXT_API ATeamInfoBase
 	: public AInfo
 	, public IGameplayTagStackInterface
 {

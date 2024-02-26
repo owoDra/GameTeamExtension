@@ -1,4 +1,4 @@
-// Copyright (C) 2024 owoDra
+﻿// Copyright (C) 2024 owoDra
 
 #pragma once
 
@@ -13,7 +13,7 @@ class AGameState;
  * Base class that defines and executes the method of automatic team assignment
  */
 UCLASS(BlueprintType, Const, DefaultToInstanced, EditInlineNew)
-class UTeamAssignBase : public UObject
+class GTEXT_API UTeamAssignBase : public UObject
 {
 	GENERATED_BODY()
 public:

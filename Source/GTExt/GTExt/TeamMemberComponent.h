@@ -1,4 +1,4 @@
-// Copyright (C) 2024 owoDra
+﻿// Copyright (C) 2024 owoDra
 
 #pragma once
 
@@ -39,7 +39,7 @@ public:
 
 public:
 	UPROPERTY(BlueprintAssignable)
-	FTeamIdChangedDelegate OnTeamChangedDelegate;
+	FTeamIdChangedDelegate OnTeamChanged;
 
 protected:
 	UPROPERTY(ReplicatedUsing = OnRep_MyTeamID)

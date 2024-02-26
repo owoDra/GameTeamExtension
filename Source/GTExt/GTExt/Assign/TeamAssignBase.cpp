@@ -1,4 +1,4 @@
-// Copyright (C) 2024 owoDra
+﻿// Copyright (C) 2024 owoDra
 
 #include "TeamAssignBase.h"
 
@@ -21,6 +21,10 @@ UTeamAssignBase::UTeamAssignBase(const FObjectInitializer& ObjectInitializer)
 void UTeamAssignBase::AssignTeamForPlayer(const UTeamCreationData* TeamCreationData, APlayerState* PlayerState, AGameStateBase* GameState) const
 {
 	auto* TMC{ UTeamFunctionLibrary::GetTeamMemberComponentFromActor(PlayerState) };
+	if (!ensure(TMC))
+	{
+		return;
+	}
 
 	const auto& TeamsToCreate{ TeamCreationData->TeamsToCreate };
 	const auto NumTeams{ TeamsToCreate.Num() };

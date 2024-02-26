@@ -5,6 +5,7 @@
 #include "TeamManagerSubsystem.h"
 
 #include "Net/UnrealNetwork.h"
+#include "Net/Core/PushModel/PushModel.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(TeamInfoBase)
 
@@ -23,8 +24,16 @@ void ATeamInfoBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(ThisClass, TeamTags);
-	DOREPLIFETIME_CONDITION(ThisClass, TeamId, COND_InitialOnly);
+	FDoRepLifetimeParams Params;
+	Params.bIsPushBased = true;
+
+	Params.Condition = COND_InitialOnly;
+	Params.RepNotifyCondition = REPNOTIFY_Always;
+	DOREPLIFETIME_WITH_PARAMS_FAST(ATeamInfoBase, TeamId, Params);
+
+	Params.Condition = COND_None;
+	Params.RepNotifyCondition = REPNOTIFY_Always;
+	DOREPLIFETIME_WITH_PARAMS_FAST(ATeamInfoBase, TeamTags, Params);
 }
 
 
@@ -69,6 +78,7 @@ void ATeamInfoBase::SetTeamId(int32 NewTeamId)
 	check(NewTeamId != INDEX_NONE);
 
 	TeamId = NewTeamId;
+	MARK_PROPERTY_DIRTY_FROM_NAME(ATeamInfoBase, TeamId, this);
 
 	TryRegisterWithTeamManagerSubsystem();
 }

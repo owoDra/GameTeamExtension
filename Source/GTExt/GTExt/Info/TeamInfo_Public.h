@@ -1,4 +1,4 @@
-// Copyright (C) 2024 owoDra
+﻿// Copyright (C) 2024 owoDra
 
 #pragma once
 
@@ -16,7 +16,7 @@ class UTeamDisplayData;
  *	Information stored in this class can be seen by other teams
  */
 UCLASS()
-class ATeamInfo_Public : public ATeamInfoBase
+class GTEXT_API ATeamInfo_Public : public ATeamInfoBase
 {
 	GENERATED_BODY()
 
