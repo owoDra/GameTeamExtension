@@ -37,6 +37,8 @@ class GTEXT_API UTeamManagerSubsystem : public UWorldSubsystem
 public:
 	UTeamManagerSubsystem() {}
 
+	inline static const FString NAME_TeamStatOptionKey{ TEXT("Team") };
+
 public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual void Deinitialize() override;
@@ -162,5 +164,15 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Teams")
 	TArray<int32> GetEnemyTeamIDsFromActor(const AActor* TestActor) const;
+
+
+	////////////////////////////////////////////////////
+	// Game Mode Option
+public:
+	UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable, Category = "Teams")
+	virtual bool InitializeFromGameModeOption();
+
+	UFUNCTION(BlueprintCallable, Category = "Teams")
+	virtual FString ConstructGameModeOption() const;
 
 };

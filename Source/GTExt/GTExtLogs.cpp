@@ -2,4 +2,4 @@
 
 #include "GTExtLogs.h"
 
-DEFINE_LOG_CATEGORY(LogGTE);
+DEFINE_LOG_CATEGORY(LogGameExt_Team);

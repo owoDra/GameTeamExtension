@@ -134,7 +134,7 @@ bool UTeamManagerComponent::CanChangeInitState(UGameFrameworkComponentManager* M
 
 void UTeamManagerComponent::HandleChangeInitState(UGameFrameworkComponentManager* Manager, FGameplayTag CurrentState, FGameplayTag DesiredState)
 {
-	UE_LOG(LogGTE, Log, TEXT("[%s] Team Manager Component InitState Reached: %s"),
+	UE_LOG(LogGameExt_Team, Log, TEXT("[%s] Team Manager Component InitState Reached: %s"),
 		GetOwner()->HasAuthority() ? TEXT("SERVER") : TEXT("CLIENT"), *DesiredState.GetTagName().ToString());
 
 	/**
@@ -240,7 +240,7 @@ void UTeamManagerComponent::ServerAssignPlayersToTeams()
 	}
 	else
 	{
-		UE_LOG(LogGTE, Warning, TEXT("Can't bind OnPostLogin Event. GameMode must inherit from AGFCGameMode or AGFCGameModeBase to use event binding."));
+		UE_LOG(LogGameExt_Team, Warning, TEXT("Can't bind OnPostLogin Event. GameMode must inherit from AGFCGameMode or AGFCGameModeBase to use event binding."));
 	}
 }
 

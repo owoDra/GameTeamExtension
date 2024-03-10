@@ -124,7 +124,7 @@ void UTeamManagerSubsystem::AddTeamTagStack(int32 TeamId, FGameplayTag Tag, int3
 	{
 		[&](const FString& ErrorMessage)
 		{
-			UE_LOG(LogGTE, Error, TEXT("AddTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
+			UE_LOG(LogGameExt_Team, Error, TEXT("AddTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
 		}
 	};
 
@@ -158,7 +158,7 @@ void UTeamManagerSubsystem::RemoveTeamTagStack(int32 TeamId, FGameplayTag Tag, i
 	{
 		[&](const FString& ErrorMessage)
 		{
-			UE_LOG(LogGTE, Error, TEXT("RemoveTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
+			UE_LOG(LogGameExt_Team, Error, TEXT("RemoveTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
 		}
 	};
 
@@ -192,7 +192,7 @@ void UTeamManagerSubsystem::SetTeamTagStack(int32 TeamId, FGameplayTag Tag, int3
 	{
 		[&](const FString& ErrorMessage)
 		{
-			UE_LOG(LogGTE, Error, TEXT("SetTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
+			UE_LOG(LogGameExt_Team, Error, TEXT("SetTeamTagStack(TeamId: %d, Tag: %s, StackCount: %d) %s"), TeamId, *Tag.ToString(), StackCount, *ErrorMessage);
 		}
 	};
 
@@ -231,7 +231,7 @@ int32 UTeamManagerSubsystem::GetTeamTagStackCount(int32 TeamId, FGameplayTag Tag
 	}
 	else
 	{
-		UE_LOG(LogGTE, Log, TEXT("GetTeamTagStackCount(TeamId: %d, Tag: %s) failed because it was passed an unknown team id"), TeamId, *Tag.ToString());
+		UE_LOG(LogGameExt_Team, Log, TEXT("GetTeamTagStackCount(TeamId: %d, Tag: %s) failed because it was passed an unknown team id"), TeamId, *Tag.ToString());
 		
 		return 0;
 	}
@@ -311,4 +311,39 @@ TArray<int32> UTeamManagerSubsystem::GetEnemyTeamIDsFromActor(const AActor* Test
 	Result.Sort();
 
 	return Result;
+}
+
+
+// Game Mode Option
+
+bool UTeamManagerSubsystem::InitializeFromGameModeOption()
+{
+	auto bResult{ false };
+
+	UE_LOG(LogGameExt_Team, Log, TEXT("Initialize Team Stat From Game Mode Option"));
+
+	for (const auto& KVP : TeamMap)
+	{
+		if (auto PublicTeamInfo{ KVP.Value.PublicInfo })
+		{
+			bResult |= PublicTeamInfo->InitializeFromGameModeOption();
+		}
+	}
+
+	return bResult;
+}
+
+FString UTeamManagerSubsystem::ConstructGameModeOption() const
+{
+	FString Options;
+
+	for (const auto& KVP : TeamMap)
+	{
+		if (auto PublicTeamInfo{ KVP.Value.PublicInfo })
+		{
+			Options += PublicTeamInfo->ConstructGameModeOption();
+		}
+	}
+
+	return Options;
 }

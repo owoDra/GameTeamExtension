@@ -73,4 +73,9 @@ public:
 	 */
 	void SetTeamId(int32 NewTeamId);
 
+	////////////////////////////////////////////////////
+	// Game Mode Option
+public:
+	virtual bool InitializeFromGameModeOption();
+	virtual FString ConstructGameModeOption() const;
 };

@@ -41,7 +41,7 @@ void FTeamTrackingInfo::SetTeamInfo(ATeamInfoBase* Info)
 
 	else
 	{
-		UE_LOG(LogGTE, Error, TEXT("Expected a public or private team info but got %s"), *GetPathNameSafe(Info));
+		UE_LOG(LogGameExt_Team, Error, TEXT("Expected a public or private team info but got %s"), *GetPathNameSafe(Info));
 	}
 }
 
@@ -65,6 +65,6 @@ void FTeamTrackingInfo::RemoveTeamInfo(ATeamInfoBase* Info)
 
 	else
 	{
-		UE_LOG(LogGTE, Error, TEXT("Expected a previously registered team info but got %s"), *GetPathNameSafe(Info));
+		UE_LOG(LogGameExt_Team, Error, TEXT("Expected a previously registered team info but got %s"), *GetPathNameSafe(Info));
 	}
 }
