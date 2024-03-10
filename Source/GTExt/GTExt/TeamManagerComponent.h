@@ -1,4 +1,4 @@
-// Copyright (C) 2024 owoDra
+﻿// Copyright (C) 2024 owoDra
 
 #pragma once
 
@@ -77,6 +77,12 @@ public:
 	 */
 	UFUNCTION(BlueprintAuthorityOnly, BlueprintCallable)
 	void SetTeamCreationData(const UTeamCreationData* NewTeamCreationData);
+
+	/**
+	 * Get the current team creation data
+	 */
+	UFUNCTION(BlueprintCallable)
+	const UTeamCreationData* GetTeamCreationData() const { return TeamCreationData; }
 
 
 protected:

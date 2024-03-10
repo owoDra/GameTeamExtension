@@ -23,6 +23,14 @@ public:
 	/**
 	 * Base class that defines and executes the method of automatic team assignment
 	 */
-	virtual void AssignTeamForPlayer(const UTeamCreationData* TeamCreationData, APlayerState* PlayerState, AGameStateBase* GameState) const;
+	void AssignTeamForPlayer(const UTeamCreationData* TeamCreationData, APlayerState* PlayerState, AGameStateBase* GameState) const;
+
+protected:
+	virtual void ProcessAssign(const UTeamCreationData* TeamCreationData, APlayerState* PlayerState, AGameStateBase* GameState) const;
+	virtual bool ProcessAssignFromGameModeOption(const UTeamCreationData* TeamCreationData, APlayerState* PlayerState, AGameStateBase* GameState) const;
+
+
+public:
+	virtual FString ConstructGameModeOption(const TArray<APlayerState*>& Players) const;
 
 };

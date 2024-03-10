@@ -4,11 +4,16 @@
 
 #include "Info/TeamInfo_Private.h"
 #include "Info/TeamInfo_Public.h"
+#include "Assign/TeamAssignBase.h"
+#include "TeamManagerComponent.h"
 #include "TeamMemberComponent.h"
 #include "TeamFunctionLibrary.h"
+#include "TeamCreationData.h"
 #include "GTExtLogs.h"
 
 #include "GenericTeamAgentInterface.h"
+#include "GameFramework/GameStateBase.h"
+
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(TeamManagerSubsystem)
 
@@ -337,12 +342,27 @@ FString UTeamManagerSubsystem::ConstructGameModeOption() const
 {
 	FString Options;
 
+	// Create Option from TeamInfo
+
 	for (const auto& KVP : TeamMap)
 	{
 		if (auto PublicTeamInfo{ KVP.Value.PublicInfo })
 		{
 			Options += PublicTeamInfo->ConstructGameModeOption();
 		}
+	}
+
+	// Create Option from TeamAssign
+
+	const auto* World{ GetWorld() };
+	const auto* GameState{ World ? World->GetGameState() : nullptr };
+	const auto* TeamManager{ GameState ? GameState->FindComponentByClass<UTeamManagerComponent>() : nullptr };
+	const auto* TeamCreationData{ TeamManager ? TeamManager->GetTeamCreationData() : nullptr };
+	const auto TeamAssgin{ TeamCreationData ? TeamCreationData->TeamAssignType : nullptr };
+
+	if (ensure(TeamAssgin))
+	{
+		Options += TeamAssgin->ConstructGameModeOption(GameState->PlayerArray);
 	}
 
 	return Options;
