@@ -102,6 +102,14 @@ bool UTeamManagerSubsystem::CanCauseDamage(const AActor* Instigator, const AActo
 
 ETeamComparison UTeamManagerSubsystem::CompareTeams(const AActor* A, const AActor* B, int32& TeamIdA, int32& TeamIdB) const
 {
+	if (A == B)
+	{
+		TeamIdA = INDEX_NONE;
+		TeamIdB = INDEX_NONE;
+
+		return ETeamComparison::OnSameTeam;
+	}
+
 	TeamIdA = FindTeamFromActor(A);
 	TeamIdB = FindTeamFromActor(B);
 
